@@ -1,28 +1,4 @@
-#include <iostream>
-#include <string>
-using namespace std;
-
-//Desarrollar un programa que permita registrar 
-//las notas de estudiantes de un curso y 
-//calcular estadísticas académicas.
-
-const int MAX_ESTUDIANTES = 50; //almacenar cant max estudiantes
-
-float calcularPromedio(float n1,float n2,float n3);
-
-void buscarEstudiante(int codigoBuscado, int codigos[], string nombres[],float promedios[], int cantidad);
-void buscarEstudiante(string nombreBuscado, int codigos[], string nombres[],float promedios[], int cantidad);
-
-int main() {
-
-    int codigos[MAX_ESTUDIANTES]; //Arreglos que permiten almacenar múltiples registros.
-    string nombres[MAX_ESTUDIANTES];
-    float notas1[MAX_ESTUDIANTES];
-    float notas2[MAX_ESTUDIANTES];
-    float notas3[MAX_ESTUDIANTES];
-    float promedios[MAX_ESTUDIANTES];
-
-    int cantidadEstudiantes = 0;
+   int cantidadEstudiantes = 0;
     int opcion;
 
     cout<<"Bienvenido al Sistema de Evaluacion Academica"<<endl;
@@ -44,7 +20,7 @@ int main() {
             case 1:{
                 if(cantidadEstudiantes < MAX_ESTUDIANTES){
                     cout<<"\n---Registro de estudiantes---"<<endl;
-                    cout<<"Ingrese el codigo de alumno (solo numeros): ";
+                    cout<<"Ingrese el codigo de alumno (solo numeros):";
                     cin>>codigos[cantidadEstudiantes];
                     cout<<"Ingrese el nombre del alumno: ";
                     cin.ignore();
@@ -112,10 +88,9 @@ int main() {
                     cout<<"No hay estudiantes registrados."<<endl;
                 }else{
                     float sumaPromedios = 0;
-                    float maxNota = notas1[0];
-                    float minNota = notas1[0];
-                    int aprobados = 0; 
-                    int desaprobados = 0;
+                    float maxNota = promedios[0];
+                    float minNota = promedios[0];
+                    int aprobados = 0, desaprobados = 0;
 
                     for(int i = 0; i < cantidadEstudiantes; i++){
                         sumaPromedios = sumaPromedios + promedios[i];
@@ -125,26 +100,21 @@ int main() {
                         }else{
                             desaprobados++;
                         }
-                    
-                        if(notas1[i] > maxNota) {
-                            maxNota = notas1[i];
-                        }else if(notas1[i] < minNota){
-                            minNota = notas1[i];
-                        }
+                    }
 
-                        if(notas2[i] > maxNota) {
-                            maxNota = notas2[i];
-                        }else if(notas2[i] < minNota) {
-                            minNota = notas2[i];
-                        }
-
-                        if(notas3[i] > maxNota) {
-                            maxNota = notas3[i];
-                        }else if(notas3[i] < minNota) {
-                            minNota = notas3[i];
+                    for(int i = 1; i < cantidadEstudiantes; i++){
+                        float notas[3] = {notas1[i], notas2[i], notas3[i]};
+                        
+                        for (int j = 0; j < 3; j++) {
+                            if (notas[j] > maxNota) {
+                                maxNota = notas[j];
+                            }
+                            if (notas[j] < minNota) {
+                                minNota = notas[j];
+                            }
                         }
                     }
-                    
+
                     float promedioGeneral = sumaPromedios/ cantidadEstudiantes;
 
                     cout<<"Promedio general del curso: "<<promedioGeneral<<endl;
